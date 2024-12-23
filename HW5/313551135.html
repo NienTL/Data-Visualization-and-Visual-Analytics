@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Vis. HW5</title>
+    <link rel="stylesheet" href="313551135.css">
+</head>
+<body>harts</h1>
+    <div class="component">
+        <button id="tips">💡 Tips</button>
+        <dialog id="information">
+            <h3>Some Notes</h3>
+            <ul>
+                <li>Use the Menu to sort the data by the attributes, and select "Ascending" or "Descending."</li>
+                <li>You can lighten the legend by clicking on it to show the specific criteria. Also, click again to restore.</li>
+                <li>You are free to move your mouse over each bar to show its attribute and value.</li>
+                <li>Please note: if you choose a legend, you can only see the value of the chosen criteria by hovering your mouse.<br>This is to let the data be clearly showed.</li>
+            </ul>
+            <div align="center"><button id="ok">Got it!</button></div>
+        </dialog>
+
+        <div class = "sort-control">
+            <label for="sort-by">Sort by: </label>
+            <select id="sort-by">
+                <option value="scores_overall" selected>Overall</option>
+                <option value="scores_teaching">Teaching</option>
+                <option value="scores_research">Research</option>
+                <option value="scores_citations">Citations</option>
+                <option value="scores_industry_income">Industry Income</option>
+                <option value="scores_international_outlook">International</option>
+            </select>
+
+            <label for="order">Order by: </label>
+            <select id="order">
+                <option value="descending" selected>Descending</option>
+                <option value="ascending">Ascending</option>
+            </select>
+        </div>
+    </div>
+        
+
+    <div class = legend-control>
+        <span class = "scores_teaching" data-attr="scores_teaching"></span>
+        <span class="text">Teaching</span>
+        <span class = "scores_research" data-attr="scores_research"></span>
+        <span class="text">Research</span>
+        <span class = "scores_citations" data-attr="scores_citations"></span>
+        <span class="text">Citations</span>
+        <span class = "scores_industry_income" data-attr="scores_industry_income"></span>
+        <span class="text">Industry Income</span>
+        <span class = "scores_international_outlook" data-attr="scores_international_outlook"></span>
+        <span class="text">International</span>
+
+    </div>
+    <div id="mydatavis"></div>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="313551135.js"></script>
+</body>
+</html>

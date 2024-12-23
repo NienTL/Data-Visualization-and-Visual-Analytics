@@ -1,0 +1,77 @@
+h1 {
+    text-align: center;
+}
+
+h3 {
+    text-align: center;
+}
+
+select {
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+dialog {
+    box-shadow: 0 2px 6px #ccc;
+    border-radius: 10px;
+}
+
+.component {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+}
+
+.tooltip {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0;
+    background-color: white;
+    border: solid;
+    border-width: 1px;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.legend-control {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  padding: 24px 0;  
+}
+
+.scores_teaching {
+    height: 24px;
+    width: 24px;
+    display: inline-block;
+    background-color: #7fc97f;
+}
+
+.scores_research {
+    height: 24px;
+    width: 24px;
+    display: inline-block;
+    background-color: #beaed4;
+}
+
+.scores_citations {
+    height: 24px;
+    width: 24px;
+    display: inline-block;
+    background-color: #fdc086;
+}
+
+.scores_industry_income {
+    height: 24px;
+    width: 24px;
+    display: inline-block;
+    background-color: #ffff99;
+}
+
+.scores_international_outlook {
+    height: 24px;
+    width: 24px;
+    display: inline-block;
+    background-color: #386cb0;
+}
+

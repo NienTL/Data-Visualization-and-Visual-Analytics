@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<!-- Load d3.js -->
+<script src="https://d3js.org/d3.v6.js"></script>
+<script src="https://d3js.org/d3.v5.js"></script>
+
+<!-- Create a div where the graph will take place -->
+
+<style>
+.x line{
+  stroke: gray;
+  z-index: 9999;
+  position: relative;
+}
+
+.x path{
+  z-index: 9999;
+}
+
+h1 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color:#4923F4;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+form {
+    margin-top: 5px;
+}
+
+</style>
+
+<body bgcolor="F5EBE0">
+    <center>
+    <h1>Discover Songs Ranked by What Matters to You</h1>
+    <form action="#">
+        <label>Choose ranking criteria:</label>
+        <select name="xtype" id="xtype">
+          <option value="in_spotify_playlists" selected>in_spotify_playlists</option>
+          <option value="in_spotify_charts">in_spotify_charts</option>
+          <option value="streams">streams</option>
+          <option value="in_apple_playlists">in_apple_playlists</option>
+          <option value="in_apple_charts">in_apple_charts</option>
+          <option value="in_deezer_playlists">in_deezer_playlists</option>
+          <option value="in_deezer_charts">in_deezer_charts</option>
+          <option value="in_shazam_charts">in_shazam_charts</option>
+          <option value="bpm">bpm</option>
+          <option value="danceability_%">danceability_%</option>
+          <option value="valence_%">valence_%</option>
+          <option value="energy_%">energy_%</option>
+          <option value="acousticness_%">acousticness_%</option>
+          <option value="instrumentalness_%">instrumentalness_%</option>
+          <option value="liveness_%">liveness_%</option>
+          <option value="speechiness_%">speechiness_%</option>
+        </select>
+    </form>
+
+    <form>
+        <label>Choose ranking method:</label>
+        <select name="ytype" id="ytype">
+          <option value="descending">descending</option>
+          <option value="ascending">ascending</option>
+        </select>
+    </form>
+
+    <form>
+        <label>Choose ranking range:</label>
+        <input name="range1" id="range1" type="text" list="type" style="width:100px">
+        <datalist name="range1" id="type">
+            <option value=1>1</option>
+            <option value=100>100</option>
+            <option value=200>200</option>
+            <option value=300>300</option>
+            <option value=400>400</option>
+            <option value=500>500</option>
+            <option value=600>600</option>
+            <option value=700>700</option>
+            <option value=800>800</option>
+            <option value=900>900</option>
+            <option value=953>final(953)</option>
+        </datalist>
+
+        <label>~</label>
+        <input name="range2" id="range2" type="text" list="type" style="width:100px">
+        <datalist name="range2" id="type">
+            <option value=1>1</option>
+            <option value=100>100</option>
+            <option value=200>200</option>
+            <option value=300>300</option>
+            <option value=400>400</option>
+            <option value=500>500</option>
+            <option value=600>600</option>
+            <option value=700>700</option>
+            <option value=800>800</option>
+            <option value=900>900</option>
+            <option value=953>final(953)</option>
+        </datalist>
+    </form>
+    <p>Tap a Bar to Explore and Listen!</p>
+    <div id="my_dataviz"></div>
+    </center>
+</body>
+<script>
+    
+    var margin = {top: 100, right: 300, bottom: 300, left: 300},
+        width = 1500 - margin.left - margin.right,
+        height = 30000 - margin.top - margin.bottom;
+    
+
+    var color = d3.scaleOrdinal()
+        .domain(["in_spotify_playlists"])
+        .range(["#98abc5"]);
+
+    var svg = d3.select("#my_dataviz").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    var xtype = 'in_spotify_playlists';
+    var ytype = "descending"
+    var range1 = 1;
+    var range2 = 953;
+
+    function cleanData(row) {
+        console.log(row["artist(s)_name"])
+        const artist_name = row["artist(s)_name"].split(',').map(name => name.trim());
+
+        return {
+            track_name: row.track_name.trim().replace(/^['"]|['"]$/g, ''), // 去掉首尾引號
+            artist_name: artist_name, // 分割成數組並去除多餘空格
+            artist_count: artist_name.length, // 重新計算作者數量
+            danceability: parseInt(row["danceability_%"]),
+            energy: parseInt(row["energy_%"]),
+            valence: parseInt(row["valence_%"]),
+            acousticness: parseInt(row["acousticness_%"]),
+            instrumentalness: parseInt(row["instrumentalness_%"]),
+            liveness: parseInt(row["liveness_%"]),
+            speechiness: parseInt(row["speechiness_%"]),
+        };
+    }
+
+    const tooltip = d3.select("#my_dataviz")
+            .append("div")
+            .style("opacity", 0)
+            .style("position", "absolute")
+            .attr("class", "tooltip")
+            .style("background-color", "white")
+            .style("border", "solid")
+            .style("border-width", "1px")
+            .style("border-radius", "5px")
+            .style("padding", "10px")
+
+
+    // Three function that change the tooltip when user hover / move / leave a cell
+    const mouseover = function(d, l) {
+        //console.log(l)
+        d3.select(this).style("stroke", "black")
+        const song = d.track_name;
+        const singer = d['artist(s)_name'];
+        const i = d3.selectAll("rect").nodes().indexOf(this);
+        
+        const rank = parseInt(i)+parseInt(range1);
+        const value = d[xtype];
+        tooltip
+            .html("song_name:" + song + "<br>singer: " + singer + "<br>rank: " + rank + "<br>value: " + value)
+            .style("opacity", 1)
+            .style("text-align", "left")
+    }
+
+    const mousemove = function(d, i) {
+        tooltip.style("transform","translateY(-55%)")
+            .style("left",(event.pageX)+20+"px")
+            .style("top",(event.pageY)-30+"px")
+    }
+    const mouseleave = function(event, d) {
+        tooltip
+            .style("opacity", 0)
+
+        d3.select(this).style("stroke", "none")
+    }
+    const click = function(d){
+        const cleanedRow = cleanData(d);
+        d = cleanedRow;
+        console.log(d)
+        
+        const radarData = [{
+        className: d.artist_name,
+        songName: d.track_name,
+        keyword: `${d.track_name} ${d.artist_name}`,
+        color: '#69b3a2',
+        axes: [
+            { axis: "danceability_%", value: d.danceability },
+            { axis: "valence_%", value: d.valence },
+            { axis: "energy_%", value: d.energy },
+            { axis: "acousticness_%", value: d.acousticness },
+            { axis: "instrumentalness_%", value: d.instrumentalness },
+            { axis: "liveness_%", value: d.liveness },
+            { axis: "speechiness_%", value: d.speechiness }
+        ]
+        }];
+
+        // 將資料存入 localStorage
+        localStorage.setItem('radarData', JSON.stringify(radarData));
+
+        // 跳轉到雷達圖頁面
+        window.location.href = './radarChart/example/radarChart.html';
+    }
+
+    d3.csv("spotify-2023.csv").then( function(data) {
+        data.forEach(function(d){
+            d.song_sing = "" + d.track_name + '_' + d['artist(s)_name'];
+        });
+        
+        update(data)
+
+        d3.select("#xtype").on("change",function(d){
+            xtype = d3.select("#xtype").property("value") //property:像是表單等等動態的元素屬性，與attr類似
+            update(data);
+        })
+
+        d3.select("#ytype").on("change",function(d){
+            ytype = d3.select("#ytype").property("value") //property:像是表單等等動態的元素屬性，與attr類似
+            update(data);
+        })
+
+        d3.select("#range1").on("change",function(d){
+            range1 = d3.select("#range1").property("value") //property:像是表單等等動態的元素屬性，與attr類似
+            update(data);
+        })
+
+        d3.select("#range2").on("change",function(d){
+            range2 = d3.select("#range2").property("value") //property:像是表單等等動態的元素屬性，與attr類似
+            update(data);
+        })
+    })
+
+    function update(data){
+        d3.selectAll("svg").remove()
+        
+        var svg = d3.select("#my_dataviz").append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        //排序
+        if(ytype == "ascending")
+            data = d3.sort(data, (a, b) => d3.ascending(parseInt(a[xtype]), parseInt(b[xtype])))
+        else
+            data = d3.sort(data, (a, b) => d3.descending(parseInt(a[xtype]), parseInt(b[xtype])))
+        //顯示排名區間
+        
+        data = data.slice(range1-1,range2);
+        height = (range2-range1+1)*30;
+        // Add X axis
+        //console.log(d3.max(data, d => parseInt(d.in_spotify_playlists)));
+        const x = d3.scaleLinear()
+            .domain([ 0, d3.max(data, d => parseInt(d[xtype]))])
+            .range([ 0, width]);
+
+        const xAxis = d3.axisTop(x)
+            .tickSize(-height);
+
+        svg.append("g")
+            .attr("class", "x")
+            .attr("transform", `translate(0, 0)`)
+            .call(xAxis)
+            .selectAll("text")
+            .attr("transform", "translate(0,0)");
+            
+        const xAxisB = d3.axisBottom(x)
+
+        svg.append("g")
+            .attr("transform", "translate(0, " + height + ")")
+            .call(xAxisB)
+            .selectAll("text")
+            .attr("transform", "translate(0,0)");
+
+        // Y axis
+        const y = d3.scaleBand()
+            .range([ 0, height])
+            .domain(data.map(d => d.song_sing))
+            .padding(.1);
+        svg.append("g")
+            .attr("class", "y")
+            .call(d3.axisLeft(y))
+            .selectAll("text")
+            .attr('width', 100)
+            .each(function(d, i) {
+                //console.log(d.split('_'))
+                song = d.split('_')
+                d3.select(this).text(song[0]);
+            });
+            
+
+        //Bars
+        svg.selectAll("myRect")
+            .data(data)
+            .join("rect")
+            .attr("x", x(0) )
+            .attr("y", d => y(d.song_sing))
+            .attr("width", d => x(d[xtype]))
+            .attr("height", y.bandwidth())
+            .attr("fill", "#69b3a2")
+            .style("opacity", 0.9)
+            .on("mouseover" , mouseover)
+            .on("mousemove", mousemove)
+            .on("mouseleave" , mouseleave)
+            .on("click" , click);
+        
+        svg.selectAll("mytext")
+            .data(data)
+            .join("text")
+            .attr("x", d => x(d[xtype]) + 10)
+            .attr("y", d => y(d.song_sing) + y.bandwidth()/2)
+            .attr("dy", ".35em")
+            .attr("text-anchor", "start")
+            .attr("font-size", "14px")
+            .attr("fill", "black")
+            .text(d => d[xtype]);
+        //colorLegend(); 
+    }
+
+</script>

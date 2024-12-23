@@ -1,0 +1,58 @@
+h1 {
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color:#4923F4;
+    margin-bottom: 60px;
+}
+
+body {
+    background-color: #F5EBE0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.bubbles:hover {
+    stroke: black;
+    opacity: 0.7;
+}
+
+select {
+    padding: 5px;
+}
+
+select:hover {
+    background-color: rgb(248, 246, 246);
+    border-color: #DD968F;
+}
+
+option:hover {
+    background-color: #DD968F;
+}
+
+
+label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 20px;
+    margin-right: 10px;
+    display: inline-block;
+}
+
+.singer-control {
+    margin-top: 20px;
+}
+
+select:hover {
+    background-color: #e8e8e8;
+    border-color: #f2b2b2;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #ccc, #333, #ccc);
+}
+
+.intro {
+    margin-left: 20px;
+}

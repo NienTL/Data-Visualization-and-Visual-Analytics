@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<body>
+  <button id="redirectWithData">Redirect with Data</button>
+
+  <script>
+    document.getElementById("redirectWithData").addEventListener("click", function() {
+      // 將資料存入 localStorage
+      localStorage.setItem('radarData', JSON.stringify(radarData));
+      window.location.href = "./radarChart.html";
+    });
+
+    let radarData = [{
+    keyword: "Cruel Summer Taylor Swift",
+    className: 'Cruel Summer', // optional can be used for styling
+    axes: [
+      {axis: "danceability_%", value: 55}, 
+      {axis: "valence_%", value: 58}, 
+      {axis: "energy_%", value: 72},  
+      {axis: "acousticness_%", value: 11},  
+      {axis: "instrumentalness_%", value: 0},
+      {axis: "liveness_%", value: 11},  
+      {axis: "speechiness_%", value: 15}
+    ]
+  }];
+    console.log(radarData);
+    
+    
+  </script>
+
+</body>
+</html>

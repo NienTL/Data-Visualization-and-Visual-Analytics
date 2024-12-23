@@ -1,0 +1,53 @@
+body {
+    text-align: center;
+}
+
+select {
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.control {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+}
+
+.categories {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    padding: 24px 0;
+}
+
+.category {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+.Iris-setosa {
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    display: inline-block;
+    background-color: #EF6F6C;
+}
+
+.Iris-versicolor {
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    display: inline-block;
+    background-color: #465775;
+}
+  
+.Iris-virginica {
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    display: inline-block;
+    background-color: #56E39F;
+}
+

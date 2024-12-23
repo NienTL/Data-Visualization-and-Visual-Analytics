@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Vis. HW1</title>
+    <link rel="stylesheet" href="313551135.css">
+</head>
+<body>
+    <div class = "session">
+        <h1>HW1 Scatter Plot</h1>
+        <div class = "control">
+            <div id = "x-control">
+                <span>X-axis:</span>
+                <!-- 下拉式選單 -->
+                <select id="x-select">
+                    <option value = "sepal length">Sepal Length</option>
+                    <option value = "sepal width">Sepal Width</option>
+                    <option value = "petal length">Petal Length</option>
+                    <option value = "petal width">Petal Width</option>
+                </select>
+            </div>
+            <div id = "y-control"></div>
+                <span>Y-axis:</span>
+                <!-- 下拉式選單 -->
+                <select id="y-select">
+                    <option value = "sepal length">Sepal Length</option>
+                    <option value = "sepal width">Sepal Width</option>
+                    <option value = "petal length">Petal Length</option>
+                    <option value = "petal width">Petal Width</option>
+                </select>
+            </div>
+        </div>
+        <!-- 上方圓點標記class -->
+        <div class = "categories">
+            <div class = "category">
+                <span class = "Iris-setosa"></span>
+                <span class = "category-label">Setosa</span>
+            </div>
+            <div class = "category">
+                <span class = "Iris-versicolor"></span>
+                <span class = "category-label">Versicolor</span>
+            </div>
+            <div class = "category">
+                <span class = "Iris-virginica"></span>
+                <span class = "category-label">Verginica</span>
+            </div>
+        </div>
+        <div id="chart"></div>
+    </div>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="313551135.js"></script>
+    
+</body>
+</html>
+

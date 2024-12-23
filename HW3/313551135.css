@@ -1,0 +1,28 @@
+body {
+    background-color: black;
+    text-align: center;
+}
+
+h1 {
+    color: white;
+}
+legend {
+    color: white;
+}
+.choice {
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 80px;
+}
+
+#male {
+    accent-color: #052F5f;
+}
+#female {
+    accent-color: #052F5f;
+}
+#infant {
+    accent-color: #052F5f;
+}

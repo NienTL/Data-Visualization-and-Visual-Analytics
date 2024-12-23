@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Cloud and Bubble Chart</title>
+    <link rel="stylesheet" href="wordcloud_bubble.css">
+</head>
+<body>
+    <h1>Explore the Top 20 Streamed Artists Across Platforms</h1>
+    <center>
+        <label for="platform">Choose a platform:</label>
+        <select name="platform" id="platform">
+            <option value="spotify">Spotify</option>
+            <option value="deezer">Deezer</option>
+            <option value="apple">Apple Music</option>
+        </select>
+    </center>
+    <div id="wordCloud"></div>
+
+    <hr>
+    <!-- ----------------------------DIVISION ------------------------------>
+    <h1>Pick Your Favorite Artist to See Their Music Evolution</h1>
+    <center>
+        <div class="singer-control">
+            <label for="singer">Choose the Popular Singer: </label>
+            <select id="singer"></select>
+            <p class="intro">Click bubble to Listen to Their Hits!</p>
+        </div>
+    </center>
+    <div id="bubblechart"></div>
+
+    <!-- ----------------------------DIVISION ------------------------------>
+    <script src="https://d3js.org/d3.v5.js"></script>
+    <script src="https://rawgit.com/jasondavies/d3-cloud/master/build/d3.layout.cloud.js"></script>
+    <script src="./wordCloud.js"></script>
+
+    <script src="https://d3js.org/d3.v6.js"></script>
+    <script src="./bubble_chart.js"></script>
+</body>
+</html>

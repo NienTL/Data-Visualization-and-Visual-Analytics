@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Data Vis. HW3</title>
+        <link rel="stylesheet" href="313551135.css">
+    </head>
+    <body>
+        <div class = "session">
+            <h1>HW3 Correlation Matrix</h1>
+            <div class="bar"></div>
+            
+            <fieldset class = "category">
+                <legend>Sex</legend>
+                <div class="choice">
+                    <div>
+                        <input type="radio" id="male" name="sex" value="male" checked />
+                        <label for="male">Male</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="female" name="sex" value="female" />
+                        <label for="female">Female</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="infant" name="sex" value="infant" />
+                        <label for="infant">Infant</label>
+                    </div>
+                </div>
+                
+            </fieldset>
+            <div id = "mydatavis"></div>
+        </div>
+
+        <script src="https://d3js.org/d3.v6.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.1/math.min.js"></script>
+        <script src="313551135.js"></script>
+    </body>
+</html>

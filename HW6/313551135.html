@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Vis. HW6</title>
+    <link rel="stylesheet" href="313551135.css">
+</head>
+<body>
+    <h1>HW6 Themeriver</h1>
+    <button id = "tips">💡 Tips</button>
+    <dialog id="information">
+        <h3>Some Notes</h3>
+        <ul>
+            <li>x axis: Saledate, quarter of the year.</li>
+            <li>y axis: Moving average of median price.</li>
+            <li>Drag the block to reorder the streams.</li>
+            <li>Click on the block to show/hide specific criteria.</li>
+            <li>You are free to move your mouse over each river to see its category.</li>
+        </ul>
+        <div align="center"><button id = "ok">Got it!</button></div>
+    </dialog>
+
+    <div class="main-view">
+        <div id="mydatavis"></div>
+        <div class="all-blocks">
+            <h3 class="align">Drag the block or Click on it!</h3>
+            <!-- <p>💡 Drag the blocks to reorder keys.</p> -->
+            <div id="blocks" class="list-group col draggable"></div>
+        </div>
+    </div>
+
+    <script src="https://d3js.org/d3.v6.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.0/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <script src="313551135.js"></script>
+</body>
+</html>

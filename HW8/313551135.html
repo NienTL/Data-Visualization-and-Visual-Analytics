@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Vis. HW8</title>
+    <link rel="stylesheet" href="313551135.css">
+</head>
+<body>
+    <h1>HW8 Sankey Diagram</h1>
+    <div class = "info">
+        <button id = "tips">💡 Tips</button>
+        <dialog id="information">
+            <h3>Some Notes</h3>
+            <ul>
+                <li>When you hover over the bands, you can see the value of each band.</li>
+                <li>The width of the bands represents the count of the dataset that holds that relationship.</li>
+                <li>You can drag each node to rearrange the Sankey nodes to focus on specific relationships.</li>
+                
+            </ul>
+            <div align="center"><button id = "ok">Got it!</button></div>
+        </dialog>
+        <div class = "legends">
+            <span class = "buying"></span>
+            <span class = "text">Buying</span>
+            <span class = "maintenance"></span>
+            <span class = "text">Maintenance</span>
+            <span class = "doors"></span>
+            <span class = "text">Doors</span>
+            <span class = "persons"></span>
+            <span class = "text">Persons</span>
+            <span class = "luggage_boot"></span>
+            <span class = "text">Luggage boot</span>
+            <span class = "safety"></span>
+            <span class = "text">Safety</span>
+        </div>
+    </div>
+    <div id="mydatavis"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"></script>
+    <script src="313551135.js"></script>
+</body>
+</html>

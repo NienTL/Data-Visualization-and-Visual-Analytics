@@ -1,0 +1,71 @@
+h1 {
+    text-align: center;
+}
+
+h3 {
+    text-align: center;
+}
+
+dialog {
+    box-shadow: 0 2px 6px #ccc;
+    border-radius: 10px;
+}
+
+button {
+    margin-left: 25px;
+    height: 30px;
+    width: 100px;
+    font-size: medium;
+}
+
+.tooltip {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0;
+    background-color: white;
+    border: solid;
+    border-width: 1px;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.draggable {
+    cursor: pointer;
+    -webkit-user-drag: element;
+}
+
+
+
+.main-view {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.mydatavis {
+    flex: 3;
+    margin-right: 20px;
+    height: 100%;
+}
+
+.align {
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: #3F5497;
+}
+
+.all-blocks {
+    flex: 1;
+    width: 300px;
+    text-align: center;
+
+    height: 100%;
+    overflow-y: auto;
+}
+
+.list-group-item {
+    padding: 5px;
+    margin-bottom: 20px;
+    border: 1px solid black
+}
+

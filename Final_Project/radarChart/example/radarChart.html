@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+<link rel="stylesheet" href="../src/radar-chart.css">
+<head>
+  <style>
+    body {
+      padding: 20px;
+      background-color: #f5ebe0;
+      font-family: Arial, Helvetica, sans-serif;
+      color:#4923F4;
+    }
+    .radar-chart .area {
+      fill-opacity: 0.7;
+    }
+    .radar-chart.focus .area {
+      fill-opacity: 0.3;
+    }
+    .radar-chart.focus .area.focused {
+      fill-opacity: 0.9;
+    }
+    .area, .germany .circle {
+      fill: #4923F4;
+      stroke: none;
+    }
+
+    #InfoContainer {
+      margin-left:15px;
+      display: block;
+    }
+
+    #trackInfo {
+      padding-left: 5px;
+    }
+
+    #btnContainer {
+      display: flex;
+    }
+
+    #addButton {
+      margin: 5px;
+    }
+
+    #addButton img{
+      height: 30px;
+      width: 30px;
+      cursor: pointer;
+    }
+
+    #playButton {
+      margin: 5px;
+    }
+
+    #playButton img{
+      height: 30px;
+      width: 30px;
+      cursor: pointer;
+    }
+
+    #musicPlayer {
+      display: flex;
+      align-items: center;
+      background-color: rgb(243, 243, 243);
+      width: 600px;
+      height: 350px;
+      padding: 15px;
+      margin-left: 15px;
+    }
+
+    .header-container{
+      display: flex; 
+      justify-content: flex-end; 
+      align-items: center; 
+      gap: 10px; 
+    }
+
+    .back-button {
+      border: none;
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #5735f1;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .back-button:hover {
+      background-color: #6d4ff1;
+    }
+
+    .info-button {
+    background-color: #5735f1;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    }
+
+    .info-button:hover {
+      background-color: #6d4ff1;
+    }
+
+    .info-menu {
+      display: none;
+      position: absolute;
+      top: 80px; 
+      right: 20px; 
+      background-color: #F6F2F0;
+      border: 1px solid #ddd;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      width: 300px;
+      z-index: 1000;
+    }
+
+    .info-menu ul {
+    list-style: none;
+    padding: 10px;
+    margin: 0;
+    } 
+
+    .info-menu li {
+      padding: 19px 20px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .info-menu li:last-child {
+      border-bottom: none;
+    }
+
+    .info-menu li:hover {
+      background-color: #e1dbfa;
+    }
+
+
+    h1 {
+      margin-top: 40px;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+
+    #contentContainer {
+      display: flex;
+      height:500px;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+
+  <!-- Spotify Web Playback SDK -->
+  <script src="https://sdk.scdn.co/spotify-player.js"></script>
+  <script type="text/javascript" src="//d3js.org/d3.v3.js"></script>
+  <script type="text/javascript" src="./radar-chart.js"></script>
+  <!-- <script type="text/javascript" src="./data.js"></script> -->
+
+  <script type="text/javascript">
+    RadarChart.defaultConfig.color = function() {};
+    RadarChart.defaultConfig.radius = 3;
+  </script>
+
+</head>
+<body>
+  <div class="header-container">
+    <!-- <a href="../../wordcloud_bubble.html" id="home">Return</a> -->
+    <button class="back-button" onclick="goBack()">Return</button>
+    <button class="info-button" onclick="toggleInfoMenu()">Show Attributes Info</button>
+  </div>
+
+  <div class="info-menu" id="infoMenu">
+    <ul>
+      <li><strong>Danceability</strong>: Percentage indicating how suitable the song is for dancing.</li>
+      <li><strong>Speechiness</strong>: Amount of spoken words in the song.</li>
+      <li><strong>Liveness</strong>: Presence of live performance elements.</li>
+      <li><strong>Instrumentalness</strong>: Amount of instrumental content in the song.</li>
+      <li><strong>Acousticness</strong>: Amount of acoustic sound in the song.</li>
+      <li><strong>Energy</strong>: Perceived energy level of the song.</li>
+      <li><strong>Valence</strong>: Positivity of the song's musical content.</li>
+    </ul>
+  </div>
+
+  <h1>Play, Feel, and Add to Your Playlist</h1>
+
+  <div id="contentContainer">
+    <div id="radarChart"></div>
+    <div id="musicPlayer">
+      <div id="albumCover"></div>
+      <div id="InfoContainer">
+        <div id="trackInfo"></div>
+        <div id="btnContainer">
+          <div id="playButton">
+            <img src="../src/play.png" alt="play music button">
+          </div>
+          <div id="addButton">
+            <img src="../src/emptyHeart.png" alt="add to list button">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+
+  <script type="text/javascript">
+    function goBack() {
+      window.location.href = "../../wordcloud_bubble.html"; // 將這裡的檔案名稱替換為上一頁的 HTML 檔案名稱
+    }
+    function toggleInfoMenu() {
+      const menu = document.getElementById('infoMenu');
+      const radarChart = document.getElementById('radarChart');
+      
+      if (menu.style.display === 'block') {
+        menu.style.display = 'none';
+      } else {
+        menu.style.display = 'block';
+      }
+    }
+
+    const storedData = JSON.parse(localStorage.getItem('radarData'));
+    console.log("storedData:", storedData)
+    var chart = RadarChart.chart();
+    var cfg = chart.config(); // retrieve default config
+    var svg = d3.select('#radarChart').append('svg')
+      .attr('width', cfg.w)
+      .attr('height', cfg.h + cfg.h / 4);
+    svg.append('g').classed('single', 1).datum(storedData).call(chart);
+    console.log(storedData);
+
+
+    const token = 'BQDT7fVHs93LznSN-caY023WvXkoxAgdEHLk819K8VPZcK37M_6_vbuLdeF_pNR3aH_qrNhoH-r6I_UawwQUW56wnHP-WFeS-rlQPFPQXUZdZMZzuszhO45lMjTu1mb9jrpzVXz5kNpyNKv9pR8-g1IpZIg5BpG0ww4-ZwkMxraV34mBcxUUNxdToAitbOHRJy75iZAR1hz7YHMC_4EZjoiQXA'; // 替換為你從後端取得的 Token
+    let query = storedData[0].keyword;
+    let deviceId;
+    let trackUri;
+    let addToList = false;
+  
+    document.getElementById('addButton').addEventListener('click', () => {
+      if(!addToList){
+        document.getElementById('addButton').innerHTML = 
+          `<img src="../src/fullHeart.png" alt="add to list button">`;
+          addToList = true;
+      }
+      else {
+        document.getElementById('addButton').innerHTML = 
+          `<img src="../src/emptyHeart.png" alt="add to list button">`;
+        addToList = false;
+      }
+    });
+    
+    // Spotify SDK 會自動呼叫此函數
+    window.onSpotifyWebPlaybackSDKReady = () => {
+      const player = new Spotify.Player({
+        name: 'Web Playback SDK Player',
+        getOAuthToken: cb => { cb(token); },
+        volume: 0.5
+      });
+
+      // Ready 事件：播放器準備好
+      player.addListener('ready', ({ device_id }) => {
+        console.log('Ready with Device ID', device_id);
+        deviceId = device_id;
+        // 在播放器就緒後，開始搜尋歌曲
+        searchTrack();
+        // transferPlayback() // 自動轉移播放
+      });
+
+      // Error 處理
+      player.addListener('not_ready', ({ device_id }) => {
+        console.log('Device ID has gone offline', device_id);
+      });
+
+      // 連接播放器
+      player.connect();
+    };
+
+    // 2. 自動搜尋歌曲
+    async function searchTrack() {
+      const searchEndpoint = `https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track&limit=1`;
+      try {
+        const response = await fetch(searchEndpoint, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+        const data = await response.json();
+
+        if (data.tracks.items.length > 0) {
+          console.log(data.tracks.items[0]);
+          trackUri = data.tracks.items[0].uri; // 取得歌曲的 URI
+          console.log('Found track URI:', trackUri);
+
+          
+          // 專輯封面圖片（album.images 陣列，依照寬度大小排列）
+          const albumImages = data.tracks.items[0].album.images; // [{url: "...", width: 300, height: 300}, ...]
+          const coverArt = albumImages.length > 0 ? albumImages[1].url : ''; 
+
+          console.log('Track URI:', trackUri);
+          console.log('Album Cover Art URL:', coverArt);
+
+          let artistArray = [];
+          data.tracks.items[0].artists.forEach(d => {
+            artistArray.push(d.name);
+          });
+
+          const artistName = artistArray.join(", ");
+          
+          document.getElementById('trackInfo').innerHTML = `
+            <h4>${data.tracks.items[0].name}</h4>
+            <p>${artistName}</p>
+          `;
+
+          // 新增封面圖片到 albumCover 區域
+          const albumCoverDiv = document.getElementById('albumCover');
+          albumCoverDiv.innerHTML = `
+            <img src="${coverArt}" alt="Album Cover Art" style="width: 300px; height: 300px; border-radius: 10px;">
+          `;
+          
+
+          // 啟用播放按鈕
+          document.getElementById('playButton').disabled = false;
+        } else {
+          console.error('No track found for the query:', query);
+        }
+      } catch (error) {
+        console.error('Error fetching track:', error);
+      }
+    }
+    
+    
+    let isPlaying = false; // 用來追蹤播放狀態
+    document.getElementById('playButton').addEventListener('click', () => {
+      if (!trackUri) {
+        alert('Track not found!');
+        return;
+      }
+
+      if (!deviceId) {
+        console.error("Device ID is not ready yet.");
+        return;
+      }
+
+      if (!isPlaying) {
+        // 如果目前沒有播放，則開始播放
+        fetch(`https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`, {
+          method: 'PUT',
+          body: JSON.stringify({
+            "uris": [trackUri] // 替換為 Spotify 歌曲 URI
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        })
+        .then(response => {
+          if (response.ok) {
+            console.log('Playback started');
+            document.getElementById('playButton').innerHTML = 
+          `<img src="../src/pause.png" alt="pause music button" />`;// 更新按鈕
+            isPlaying = true; // 更新播放狀態
+          } else {
+            console.error('Failed to start playback:', response.status);
+          }
+        });
+      } else {
+        // 如果目前正在播放，則暫停播放
+        fetch(`https://api.spotify.com/v1/me/player/pause?device_id=${deviceId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        })
+        .then(response => {
+          if (response.ok) {
+            console.log('Playback paused');
+            isPlaying = false; // 更新播放狀態
+            document.getElementById('playButton').innerHTML = `<img src="../src/play.png" alt="play music button">`; // 更新按鈕
+          } else {
+            console.error('Failed to pause playback:', response.status);
+          }
+        });
+      }
+    });
+  </script>
+
+
+</body>
+</html>

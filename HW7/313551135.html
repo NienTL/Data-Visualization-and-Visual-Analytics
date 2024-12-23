@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Vis. HW7</title>
+    <link rel="stylesheet" href="313551135.css">
+</head>
+<body>
+    <h1>HW7 Horizon Charts</h1>
+    <div class="menu">
+        <label for="type-select">Choose a pollutant type:</label>
+        <select id="type-select" name="type">
+            <option value="SO2" selected>SO₂</option>
+            <option value="NO2">NO₂</option>
+            <option value="O3">O₃</option>
+            <option value="CO">CO</option>
+            <option value="PM10">PM10</option>
+            <option value="PM2.5">PM2.5</option>
+        </select>
+    </div>
+    
+    <div id="mydatavis"></div>
+    <script src="https://d3js.org/d3.v6.js"></script>
+    <script src="//unpkg.com/horizon-timeseries-chart"></script>
+    <script src="313551135.js"></script>
+</body>
+</html>
