@@ -15,7 +15,7 @@ let x_axis_property = "sepal length";
 let y_axis_property = "sepal width";
 
 // Read the CSV data
-d3.csv("http://vis.lab.djosix.com:2024/data/iris.csv").then(data => {
+d3.csv("./iris.csv").then(data => {
     // Parse the data
     data.forEach(d => {
         d["sepal length"] = parseFloat(d["sepal length"]) || NaN;
