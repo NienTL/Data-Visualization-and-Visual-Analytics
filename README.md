@@ -2,7 +2,7 @@
 - 2024 Fall
 - Instructor: 王昱舜
 
-[HW1](https://nientl.github.io/Data-Visualization-and-Visual-Analytics/HW1/313551135.html) 
+[HW1](https://nientl.github.io/Data-Visualization-and-Visual-Analytics/HW1/313551135.html) <br>
 [HW2](https://nientl.github.io/Data-Visualization-and-Visual-Analytics/HW2/313551135.html) 
 [HW3](https://nientl.github.io/Data-Visualization-and-Visual-Analytics/HW3/313551135.html) 
 [HW4](https://nientl.github.io/Data-Visualization-and-Visual-Analytics/HW4/313551135.html) 
