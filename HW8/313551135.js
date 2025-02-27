@@ -304,7 +304,7 @@ var nodeMap;
 
 async function loadData() {
     try {
-        const response = await fetch("http://vis.lab.djosix.com:2024/data/car.data");
+        const response = await fetch("./car.data");
         const textData = await response.text();
 
         const data = textData.trim().split("\n").map(line => {

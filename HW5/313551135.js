@@ -26,7 +26,7 @@ const colorScale = d3.scaleOrdinal()
 
 let cur_lightened_attr = null;
 
-d3.csv("http://vis.lab.djosix.com:2024/data/TIMES_WorldUniversityRankings_2024.csv").then(function(data) {
+d3.csv("./TIMES_WorldUniversityRankings_2024.csv").then(function(data) {
     // console.log(data);
     data = data.filter(d => d["rank"] != "Reporter");
     data.forEach(d => {

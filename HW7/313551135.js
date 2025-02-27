@@ -1,4 +1,4 @@
-d3.csv("http://vis.lab.djosix.com:2024/data/air-pollution.csv").then(function (data) { 
+d3.csv("./air-pollution.csv").then(function (data) { 
     console.log("data:", data)
     const addressMap = {};
     const round_value = function (num, decimal) { 

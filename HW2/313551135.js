@@ -9,7 +9,7 @@ const svg = d3.select("#mydatavis")
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")" );
 
-d3.csv("http://vis.lab.djosix.com:2024/data/iris.csv", function(data) {
+d3.csv("./iris.csv", function(data) {
     var colorScale = d3.scaleOrdinal()
         .domain(["Iris-setosa", "Iris-versicolor", "Iris-virginica"])
         .range(["#EF6F6C", "#465775", "#56E39F"]);

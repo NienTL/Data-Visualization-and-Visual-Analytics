@@ -63,7 +63,7 @@ const brush = (cell, circle, svg, { padding, size, x, y, attributes}) => {
     }
 }
 
-d3.csv("http://vis.lab.djosix.com:2024/data/iris.csv").then((data) => {
+d3.csv("./iris.csv").then((data) => {
     console.log(data)
     data.splice(150, 1)
     const x = attributes.map((attri) => 

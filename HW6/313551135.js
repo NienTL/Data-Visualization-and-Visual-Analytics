@@ -19,7 +19,7 @@ const svg = d3.select('#mydatavis')
     .append("g")
     .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-d3.csv("http://vis.lab.djosix.com:2024/data/ma_lga_12345.csv").then(function(data) {
+d3.csv("./ma_lga_12345.csv").then(function(data) {
     var data_c = {}
     for(let i = 0; i < data.length; i++){
         if(!(data[i]["saledate"] in data_c)) {

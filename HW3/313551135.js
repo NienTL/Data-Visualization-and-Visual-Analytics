@@ -2,7 +2,7 @@ const margin = {top: 40, right: 20, bottom: 20, left: 20};
 const width = 600 - margin.left - margin.right;
 const height = 600 - margin.top - margin.bottom;
 
-d3.text("http://vis.lab.djosix.com:2024/data/abalone.data").then(function (data) {
+d3.text("./abalone.data").then(function (data) {
     console.log("Abalone.data: ", data);
     var attrs = ["Length", "Diameter", "Height", "Whole weight", "Shucked weight", "Viscera weight", "Shell weight", "Rings"];
     var data_F = [];
