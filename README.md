@@ -9,5 +9,5 @@
 [HW5 Stacked Bar Charts](https://nientl.github.io/Data-Visualization-and-Visual-Analytics/HW5/313551135.html) <br>
 [HW6 Themeriver](https://nientl.github.io/Data-Visualization-and-Visual-Analytics/HW6/313551135.html) <br>
 [HW7 Horizon Charts](https://nientl.github.io/Data-Visualization-and-Visual-Analytics/HW7/313551135.html) <br>
-[HW8 Sankey Diagram](https://nientl.github.io/Data-Visualization-and-Visual-Analytics/HW8/313551135.html) 
+[HW8 Sankey Diagram](https://nientl.github.io/Data-Visualization-and-Visual-Analytics/HW8/313551135.html) <br>
 [Final Project](https://nientl.github.io/Data-Visualization-and-Visual-Analytics/Final_Project/Final_project_Complete/index.html)
